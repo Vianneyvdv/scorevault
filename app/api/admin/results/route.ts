@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET ?? "scorevault2026";
+// Must be set in the deployment environment; the route refuses all requests otherwise.
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
 
 function getSupabase() {
   const url  = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -25,7 +26,7 @@ export async function POST(req: Request) {
 
   const body = await req.json();
 
-  if (body.secret !== ADMIN_SECRET) {
+  if (!ADMIN_SECRET || body.secret !== ADMIN_SECRET) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 

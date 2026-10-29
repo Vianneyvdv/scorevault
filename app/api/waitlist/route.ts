@@ -23,8 +23,9 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-  const secret = new URL(req.url).searchParams.get("secret");
-  if (secret !== "scorevault2026") {
+  const adminSecret = process.env.ADMIN_SECRET;
+  const secret = req.headers.get("x-admin-secret");
+  if (!adminSecret || secret !== adminSecret) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { data, error } = await sb.from("waitlist").select("email, created_at").order("created_at");
