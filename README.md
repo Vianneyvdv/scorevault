@@ -37,7 +37,10 @@ app/
   lib/              Supabase client, match types, Polymarket helpers, contract ABIs
 contracts/          league vault, picks, scoring, oracle and payout contracts + tests
 docs/               original research brief (French)
+bilt/               build kit for the native mobile app on Bilt
 ```
+
+**Next:** a native mobile app, built on [Bilt](https://bilt.me): NBA picks where every pick has a price and every player has a P&L. See [`bilt/`](bilt/).
 
 ## Run it locally
 
