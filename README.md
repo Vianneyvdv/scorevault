@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ScoreVault
 
-## Getting Started
+**Private prediction leagues for your group chat.** Create a league, invite your friends, call the exact score of every match, and climb the leaderboard until the final whistle.
 
-First, run the development server:
+ScoreVault is a mobile-first web app built around one idea: the friends' pick'em pool you already run in a spreadsheet or a WhatsApp thread, made instant, automatic and a lot more fun. It launched for the 2026 FIFA World Cup.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## How it works
+
+1. **Join a league.** Sign in with Google (or play as a guest), create a private league or join one with a code.
+2. **Make your picks.** Enter the exact scoreline for each match, matchday by matchday.
+3. **Picks lock at kick-off.** No edits once the match starts.
+4. **Earn points.** An exact score earns the most points, weighted by rarity: calling the upset pays more than calling the favorite. A correct result earns a bonus.
+5. **Win bragging rights.** Results sync automatically and the league leaderboard updates after every match.
+
+## What's in the app
+
+| Tab | What it does |
+| --- | --- |
+| **My Picks** | Match cards by matchday with points on offer for each outcome |
+| **Results** | Final scores and how every pick scored |
+| **Deposit** | League prize pool, coming soon |
+| **My Leagues** | Leaderboards and league members |
+| **Profile** | Stats, pick history, badges, friends and rules |
+
+## Tech stack
+
+- **App:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion
+- **Backend:** Supabase (Postgres + Auth): profiles, leagues, league members, picks, results, waitlist
+- **Data:** official scores synced from ESPN's public scoreboard; outcome probabilities from Polymarket drive the rarity-weighted points
+- **Hosting:** Vercel
+- **On-chain prize pool (prototype):** Solidity contracts on Base, built with Foundry. See [`contracts/`](contracts/)
+
+```
+app/
+  page.tsx          the whole mobile app (screens, tabs, match cards)
+  api/              results sync, admin results, waitlist, odds, testnet faucet
+  lib/              Supabase client, match types, Polymarket helpers, contract ABIs
+contracts/          league vault, picks, scoring, oracle and payout contracts + tests
+docs/               original research brief (French)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run it locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+cp .env.example .env.local   # fill in your Supabase keys and an admin secret
+npm run dev                  # open http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Roadmap
 
-## Learn More
+- One-tap league invites shared straight into WhatsApp and iMessage
+- League prize pools with a transparent, non-custodial payout
+- More competitions beyond the World Cup
 
-To learn more about Next.js, take a look at the following resources:
+## Team
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by [Vianney Vendeuvre](https://github.com/Vianneyvdv) (product, design, growth) and Jules (engineering).
