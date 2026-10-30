@@ -2,6 +2,8 @@
 
 One prompt per message, in this order. After each one, test the "Done when" points before sending the next. Bilt keeps the conversation's context, so each prompt only describes the change.
 
+**Light and dark mode:** the app follows the phone's appearance setting. After any visual change, check the screen in both modes.
+
 **How to test without live games:** the hackathon runs during the day, when no NBA game is on. To test locking, results and P&L, edit a game row in Bilt → Settings → Database → Data (change its tip-off time, status, scores), then reopen the screen.
 
 **If you're short on time:** steps 2 → 8 give the minimum demo (sign in, real games with prices, picks, a league, a leaderboard). Steps 9 and 10 (feed, profile) complete the demo flow in `README.md`. 2b, 11 and 12 are optional.
@@ -117,12 +119,12 @@ Settle picks automatically.
 
 In sync-games, for every game that is final: set its winner (the team with the higher score). Then settle every pending pick on a final game: if the pick's side is the winner, result = won and P&L = 1 / price − 1, rounded to 2 decimals; otherwise result = lost and P&L = −1.
 
-In My picks, show for each pick: the teams, the live or final score, the price at pick time, and the result (Pending, Won +1.63, Lost −1.00). The total P&L at the top sums all settled picks. Under it add a "Today" line: the sum of the P&L of picks settled today, e.g. "Today: +0.85".
+In My picks, show for each pick: the teams, the live or final score, the price at pick time, and the result (Pending, Won +1.63, Lost −1.00). The P&L header at the top of the Tonight tab now reads from the database: the total sums all settled picks, and the line under it is today's change, the sum of the P&L of picks settled today (e.g. "+0.85 today").
 
 Done when:
 - After setting a game with a pick to final with scores in the database and reopening the app, the pick shows Won or Lost
 - For any won pick, P&L = 1 / price − 1 (a pick at 38% shows +1.63)
-- The total P&L adds up
+- The P&L header and today's change add up
 ```
 
 ## Step 7 — Leagues
@@ -151,27 +153,32 @@ Done when:
 
 ## Step 8 — League leaderboard
 
+Attach the two FOMO leaderboard screenshots to this message.
+
 ```
-On the league screen, replace the plain member list with a leaderboard.
+On the league screen, replace the plain member list with a leaderboard, styled like the attached leaderboard screenshots (reference for layout only, keep our own colors).
 
-Rank members by total P&L in units over all their settled picks, highest first. Each row: rank, avatar, name, total P&L (green or red), and today's P&L in smaller text. Highlight the current user's row.
+At the top, pill-shaped period chips: Today, 7D, 30D, All. Under them, a "Your rank" row pinned at the top: the user's avatar, their rank (e.g. "#3") and their P&L for the period.
 
-Add a toggle at the top: "All time | This week" (this week = picks on games since Monday).
+Then the ranking: members ranked by P&L in units over their picks settled in the period, highest first. Each row: rank (a gold, silver and bronze medal for the top 3, a number after), avatar, name, and on the right the P&L in large type (green or red). Under the P&L, small round badges with the team abbreviations of that member's picks for today, up to 3, then "+N" for the rest.
 
 Tapping a member opens a simple list of their picks, newest first, with the same layout as My picks.
 
 Done when:
-- The ranking matches each member's P&L
-- The toggle changes the ranking
+- The ranking matches each member's P&L for the selected period
+- The chips change the ranking
+- The "Your rank" row matches the user's row in the list
 - Tapping a member shows their picks
 ```
 
 ## Step 9 — Feed
 
 ```
-Build the Feed tab: picks from people who share a league with the user, newest first.
+Build the Feed tab: picks from people who share a league with the user, newest first, like the activity feed of a social trading app where you see your friends' moves in real time.
 
-Each item: avatar, name, the pick ("picked Knicks"), the game, the price at pick time as a percentage, and what it pays ("at 38% · pays +1.63"). When the game is final, the item shows the result: "Won +1.63" in green or "Lost −1.00" in red.
+At the top, a horizontal strip "Top calls this week": small cards with the avatar, name and P&L of the best won picks of the week among the user's league-mates, biggest first. Tapping one opens that pick's author.
+
+Each feed item is a card: avatar, name, the pick ("picked Knicks"), the game, the price at pick time as a percentage, and what it pays ("at 38% · pays +1.63"). When the game is final, the item shows the result on the right: "Won +1.63" in green or "Lost −1.00" in red.
 
 When the price was under 35%, add a small "Against the crowd" tag.
 
@@ -179,25 +186,31 @@ Pull to refresh. If the user has no leagues, show "Join or create a league to se
 
 Done when:
 - A pick made by a league-mate appears at the top of the feed after refresh
+- The "Top calls this week" strip shows the week's biggest won picks
 - Finished games show the result on their items
 - Picks from people outside the user's leagues never appear
 ```
 
 ## Step 10 — Profile with P&L
 
-```
-Build the Profile tab like a trader's profile.
+Attach the FOMO trader profile screenshot to this message.
 
-At the top: avatar, name, and the total P&L in large type, green or red.
-Under it, a line chart of the cumulative P&L over time, one point per day with settled picks.
+```
+Build the Profile tab like a trader's profile, styled like the attached screenshot (reference for layout only, keep our own colors).
+
+At the top: avatar, name, and a small line with the number of picks and "Joined [month year]".
+Then the total P&L in large type, green or red, with the change for the selected period under it, and pill chips to pick the period: 7D, 30D, All.
+Under it, a line chart of the cumulative P&L over the selected period, one point per day with settled picks, the line green if the period is positive and red if negative, with a dot on the last point.
 Then four stats in a row: Picks (number of settled picks), Hit rate (% won), ROI (total P&L ÷ settled picks, as a %), Streak (consecutive days, up to today, on which the user picked all of that day's featured games).
+Then "Open picks": the user's pending picks, like open positions, with team, game and price.
 Then "Best calls": the user's 3 won picks with the highest P&L.
 
 When tapping a member in a league leaderboard, open this same profile view for them instead of the plain list of picks from step 8.
 
 Done when:
-- The chart and the four stats match the user's picks
+- The chart and the four stats match the user's picks, and the chips change the chart
 - A league-mate's profile opens from the leaderboard
+- The profile reads well in both light and dark mode
 ```
 
 ## Step 11 (optional) — Share card
@@ -237,7 +250,7 @@ Fix only this; keep everything else unchanged.
 
 **Changing the design**
 ```
-On the [screen name], change [element] to [new style]. Keep everything else unchanged.
+On the [screen name], change [element] to [new style], in both light and dark mode. Keep everything else unchanged.
 ```
 Attach a screenshot whenever the change is visual.
 

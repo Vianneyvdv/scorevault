@@ -19,11 +19,12 @@ The mobile app is built on [Bilt](https://bilt.me) (React Native / Expo), using 
 - [ ] Sign up at the-odds-api.com (free) and keep the API key somewhere safe
 - [ ] Line up 3–4 people (teammates, friends) to join your league on the first evening and pick that night's games, so the demo has real picks
 - [ ] Read through `01-first-build.md` and replace the app name if it's chosen
+- [ ] Keep your FOMO screenshots on your phone (leaderboard, friends leaderboard, home, trader profile): they're attached to step 1, step 8 and step 10. They're not stored in this repo
 - [ ] In Bilt, once the project exists: Settings → GitHub → connect your account and sync the project to a new repo under Vianneyvdv
 
 ## On the day
 
-1. Paste `01-first-build.md`, check its "Done when" points in the live preview
+1. Paste `01-first-build.md` with the FOMO screenshots attached, check its "Done when" points in the live preview, in light and dark mode
 2. Send the steps in `build-steps.md` one by one, testing after each
 3. Steps 2 → 8 = minimum demo; 9 and 10 complete the demo flow below; 2b, 11 and 12 are optional
 4. Something breaks → the bug template at the end of `build-steps.md`; never stack a new feature on a broken one
