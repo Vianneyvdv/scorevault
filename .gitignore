@@ -52,3 +52,6 @@ contracts/lib/
 contracts/out/
 contracts/cache/
 scorervault_dossier_codex.md
+
+# keep the env template
+!.env.example
